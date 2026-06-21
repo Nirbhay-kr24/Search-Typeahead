@@ -24,6 +24,22 @@ cache_nodes = {
     )
 }
 
+# Cache statistics tracking
+cache_stats = {
+    "node1": {
+        "hits": 0,
+        "misses": 0
+    },
+    "node2": {
+        "hits": 0,
+        "misses": 0
+    },
+    "node3": {
+        "hits": 0,
+        "misses": 0
+    }
+}
+
 
 def get_node(key):
 
@@ -51,6 +67,8 @@ def get_cache(key):
 
     if value:
 
+        cache_stats[node]["hits"] += 1
+
         print(
             f"CACHE HIT -> {key} on {node}"
         )
@@ -60,6 +78,8 @@ def get_cache(key):
             node,
             True
         )
+
+    cache_stats[node]["misses"] += 1
 
     print(
         f"CACHE MISS -> {key} on {node}"
@@ -99,4 +119,51 @@ def invalidate_prefix(
     print(
         f"INVALIDATED -> {prefix} on {node}"
     )
+
+
+def get_cache_stats():
+    """Get cache hit/miss statistics"""
     
+    stats = {}
+    total_hits = 0
+    total_misses = 0
+    
+    for node, data in cache_stats.items():
+        hits = data["hits"]
+        misses = data["misses"]
+        total = hits + misses
+        hit_rate = (hits / total * 100) if total > 0 else 0
+        
+        stats[node] = {
+            "hits": hits,
+            "misses": misses,
+            "total_requests": total,
+            "hit_rate_percent": round(hit_rate, 2)
+        }
+        
+        total_hits += hits
+        total_misses += misses
+    
+    # Calculate overall hit rate
+    total_requests = total_hits + total_misses
+    overall_hit_rate = (total_hits / total_requests * 100) if total_requests > 0 else 0
+    
+    return {
+        "by_node": stats,
+        "overall": {
+            "hits": total_hits,
+            "misses": total_misses,
+            "total_requests": total_requests,
+            "hit_rate_percent": round(overall_hit_rate, 2)
+        }
+    }
+
+
+def reset_cache_stats():
+    """Reset cache statistics"""
+    
+    for node in cache_stats:
+        cache_stats[node]["hits"] = 0
+        cache_stats[node]["misses"] = 0
+    
+    print("Cache statistics reset")

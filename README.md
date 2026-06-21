@@ -294,35 +294,77 @@ or run using VS Code Live Server.
 
 ## Screenshots
 
-### 1. Main UI
+### 1. API Documentation (Swagger UI)
+![Swagger UI](screenshots/swagger.png)
+
+Shows all backend endpoints:
+- /suggest
+- /search
+- /trending
+- /cache/debug
+- /stats
+
+---
+
+### 2. Cache Miss (Postgres Fallback)
+![Cache Miss](screenshots/cache-miss.png)
+
+First request:
+- Data from PostgreSQL
+- Cache MISS
+- ~40–60ms latency
+
+---
+
+### 3. Cache Hit (Redis Response)
+![Cache Hit](screenshots/cache-hit.png)
+
+Second request:
+- Data from Redis
+- Cache HIT
+- ~1–2ms latency
+
+---
+
+### 4. Backend Logs
+![Logs](screenshots/logs.png)
+
 Shows:
-- Search box
-- Suggestion dropdown
-- Trending searches
-- Response time
-- Cache source
+- CACHE HIT / MISS
+- DB HIT timing
+- RECENCY DECAY
+- Batch writer activity
 
-### 2. Cache Miss
+---
+
+### 5. UI Dashboard
+![UI](screenshots/ui.png)
+
+Features:
+- Typeahead search
+- Trending section
+- Performance panel
+
+---
+
+### 6. Stats API
+![Stats](screenshots/stats.png)
+
 Shows:
-- Source: postgres
-- Response Time: ~26 ms
+- Cache distribution
+- Hit/Miss ratio
+- Hit rate %
+- Consistent hashing
 
-### 3. Cache Hit
-Shows:
-- Source: redis
-- Response Time: ~1 ms
+---
 
-### 4. Cache Distribution
-`/stats` output showing data distributed across Redis nodes.
+### 7. Live Typeahead Demo
+![Typeahead](screenshots/typeahead.png)
 
-### 5. Batch Write Logs
-
-```text
-FLUSHING {'spotify': 20}
-```
-
-### 6. Trending Searches
-`/trending` API output.
+Prefix search example:
+- "gi" → github results
+- real-time suggestions
+- ~50ms response time
 
 ---
 

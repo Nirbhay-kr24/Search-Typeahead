@@ -13,7 +13,9 @@ from cache import cache_nodes
 from cache import (
     get_cache,
     set_cache,
-    invalidate_prefix
+    invalidate_prefix,
+    get_cache_stats,
+    reset_cache_stats
 )
 
 
@@ -211,6 +213,8 @@ def cache_debug(prefix:str):
 @app.get("/stats")
 def stats():
 
+    cache_stats = get_cache_stats()
+
     return {
 
         "buffer_size":
@@ -223,5 +227,17 @@ def stats():
 
             for node,cache
             in cache_nodes.items()
-        }
+        },
+
+        "cache_performance": cache_stats
+    }
+
+
+@app.post("/stats/reset")
+def reset_stats():
+
+    reset_cache_stats()
+
+    return {
+        "message": "Cache statistics reset successfully"
     }
