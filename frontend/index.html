@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search Typeahead</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Search Typeahead</h1>
+
+        <input id="searchInput" placeholder="Search...">
+
+        <div id="suggestions"></div>
+
+        <button id="searchBtn">
+            Search
+        </button>
+
+        <div id="result"></div>
+
+
+
+
+        <div class="bottom-section">
+
+            <div class="trending-section">
+
+                <h2>Trending</h2>
+
+                <div id="trending"></div>
+
+            </div>
+
+            <div class="metrics-section">
+
+                <h2>Performance</h2>
+
+                <div class="metric-card">
+                    <h3>Response Time</h3>
+                    <p id="latency">0 ms</p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Source</h3>
+                    <p id="source">-</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
